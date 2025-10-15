@@ -4,6 +4,7 @@ use tower_http::services::ServeDir;
 
 mod domain;
 pub mod routes;
+mod services;
 
 // This struct encapsulates our application-related logic.
 pub struct Application {
