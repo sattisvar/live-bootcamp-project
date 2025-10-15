@@ -1,7 +1,8 @@
+use axum::{routing::post, serve::Serve, Router};
 use std::error::Error;
 use tower_http::services::ServeDir;
-use axum::{Router, serve::Serve, routing::post};
 
+mod domain;
 pub mod routes;
 
 // This struct encapsulates our application-related logic.
@@ -27,10 +28,7 @@ impl Application {
         let server = axum::serve(listener, router);
 
         // Create a new Application instance and return it
-        Ok(Application {
-            server,
-            address
-        })
+        Ok(Application { server, address })
     }
 
     pub async fn run(self) -> Result<(), std::io::Error> {
@@ -38,4 +36,3 @@ impl Application {
         self.server.await
     }
 }
-
