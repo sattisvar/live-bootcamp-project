@@ -1,6 +1,7 @@
 use crate::app_state::AppState;
 use axum::{routing::post, serve::Serve, Router};
 use std::error::Error;
+use std::sync::Arc;
 use tower_http::services::ServeDir;
 
 pub mod app_state;
@@ -25,7 +26,7 @@ impl Application {
             .route("/verify-2fa", post(routes::verify_2fa))
             .route("/logout", post(routes::logout))
             .route("/verify-token", post(routes::verify_token))
-            .with_state(app_state);
+            .with_state(Arc::new(app_state));
 
         let listener = tokio::net::TcpListener::bind(address).await?;
         let address = listener.local_addr()?.to_string();
